@@ -1,24 +1,29 @@
-= Nested todo/scrum-ish plugin for redmine
+= Nested todo/scrum-ish plugin for Redmine
 
-* Supporting redmine 2.1
+* Supporting Redmine 2.4
 * Supporting Rails 3
 
 = Working features
 
-* new todo
+* new todo (on personal page and for projects)
 * delete todo
 * edit todo
 * toggle todo completion status
 * supports self todos and their CRUD operations
+* supports hierarchical todos
+* supports due dates and full Redmine / Textile syntax
+
+= Bugs / Caveats
+
+* since Rails 3 upgrade the sorting doesn't work
+* enabling the todos inside activities page causes internal error
 
 = Installation
 
 * Checkout the repository
 * Copy folder into plugins folder of redmine
-* Rename folder to "redmine_todo_scrum_plugin"
-* Run command "rake redmine:plugins:migrate"
+* Rename folder to `plugins/redmine_todo_scrum_plugin/`
+* Run command `rake redmine:plugins:migrate RAILS_ENV=production`
 * Restart the server
 
-You are ready to go
-
-
+You are ready to go.
