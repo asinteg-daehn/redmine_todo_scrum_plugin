@@ -31,29 +31,24 @@ class Todo < ActiveRecord::Base
   #need an explicit association to project, because the acts_as_activity_provider needs it. I think?
   belongs_to :project, :foreign_key => 'todoable_id', :conditions => ['todoable_type = ?', Project.to_s] 
   
-  #  named_scope :roots, :conditions => {:parent_id => nil }
   def self.roots
     where(:parent_id => nil )
   end
+  
   def self.personal_todos
     where(:todoable_type => User.to_s )
   end
+  
   def self.project_todos
     where(:todoable_type => Project.to_s )
   end
+  
   def self.for_project
     lambda { |project_id|
       {:conditions => {:todoable_type => Project.to_s, :todoable_id => project_id}}
     }
   end
-  #  named_scope :personal_todos, :conditions => {:todoable_type => User.to_s}
-  #  named_scope :project_todos, :conditions => {:todoable_type => Project.to_s}
-  #  named_scope :for_project, lambda { |project_id|
-  #    {:conditions => {:todoable_type => Project.to_s, :todoable_id => project_id}}
-  #  }
-  #  named_scope :for_user, lambda { |user_id|
-  #    { :conditions => ["author_id = ? OR assigned_to_id = ?",user_id, user_id] }
-  #  }
+  
   def self.for_user user_id
      where("author_id = ? OR assigned_to_id = ?",user_id, user_id)
   end
@@ -67,7 +62,7 @@ class Todo < ActiveRecord::Base
     items << ((r = o.refers_to) ? "#{l(:field_issue_to)}: #{r.tracker} ##{o.refers_to.id} (#{o.refers_to.status}): #{o.refers_to.subject}" : "")
     items.join("\n")
   },
-    :url => Proc.new {|o| {:controller => "projects/#{o.todoable.identifier}/todos", :action => 'show', :id => o}},
+    :url => Proc.new {|o| {:controller => "todos", :action => "show", :project_id => o.todoable.identifier, :id => o}},
     :type => Proc.new {|o| 'todo'}
               
   acts_as_activity_provider :timestamp => "#{table_name}.updated_at",
