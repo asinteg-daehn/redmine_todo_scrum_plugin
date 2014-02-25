@@ -47,7 +47,7 @@ class TodosController < ApplicationController
         @todos = @project.todos.roots
         @allowed_to_edit = User.current.allowed_to?(:edit_todos, @project)
         @new_todo = parent_object.todos.new(:assigned_to => User.current) #Todo.new
-        render action: 'update_todo_ui'
+        render :action => "update_todo_ui"
       }
     end
   end
@@ -62,7 +62,7 @@ class TodosController < ApplicationController
     respond_to do |format|
       format.html { render }
       format.js {
-        render action: 'update_todo_ui'
+        render :action => "update_todo_ui"
       }
     end
 
@@ -79,7 +79,7 @@ class TodosController < ApplicationController
     #@todo.todoable = parent_object
     respond_to do |format|
       format.js {
-        render action: 'update_todo_ui'
+        render :action => "update_todo_ui"
       }
     end
   end
@@ -93,7 +93,7 @@ class TodosController < ApplicationController
       respond_to do |format|
         format.js {
           @allowed_to_edit = User.current.allowed_to?(:edit_todos, @project)
-          render action: 'update_todo_ui'
+          render :action => "update_todo_ui"
         }
       end
     else
@@ -117,7 +117,7 @@ class TodosController < ApplicationController
             @allowed_to_edit = User.current.allowed_to?(:edit_todos, @project)
             @new_todo = parent_object.todos.new(:assigned_to => User.current) #Todo.new
             @issue_todos = 'reload'  unless  params[:todo][:issue_id].empty?
-            render action: 'update_todo_ui'
+            render :action => "update_todo_ui"
           }
         end
       else
@@ -153,7 +153,7 @@ class TodosController < ApplicationController
         respond_to do |format|
           format.js {
             @allowed_to_edit = User.current.allowed_to?(:edit_todos, @project)
-            render action: 'update_todo_ui'
+            render :action => "update_todo_ui"
           }
         end
       else
@@ -169,7 +169,7 @@ class TodosController < ApplicationController
     if request.xhr?
       respond_to do |format|
         format.js {
-          render action: 'update_todo_ui'
+          render :action => "update_todo_ui"
         }
       end
     else

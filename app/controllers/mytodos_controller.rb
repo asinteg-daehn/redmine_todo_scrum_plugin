@@ -12,10 +12,10 @@ class MytodosController < TodosController
   before_filter :set_user
 
   def index
-    #@user = User.current
+    @user = User.current
   
     #get all the root level todos belonging to current user
-    #@todos = User.current.todos.select{|t| t.parent_id == nil }
+    @todos = User.current.todos.select{|t| t.parent_id == nil }
     @personal_todos = @user.todos.roots
 
     #find the roots of any project todo that belongs to or was authored by the user
@@ -39,7 +39,7 @@ class MytodosController < TodosController
         respond_to do |format|
           format.js {
             @personal_todos = @user.todos.roots
-            render action: 'update_mytodo_ui'
+            render :action => "update_mytodo_ui"
           }
         end
       else
@@ -61,7 +61,7 @@ class MytodosController < TodosController
         :locals => {:todo => @todo, :editable => true}
       respond_to do |format|
         format.js {
-          render action: 'update_mytodo_ui'
+          render :action => "update_mytodo_ui"
         }
       end
     else
@@ -80,7 +80,7 @@ class MytodosController < TodosController
     respond_to do |format|
       format.js {
         @personal_todos = @user.todos.roots
-        render action: 'update_mytodo_ui'
+        render :action => "update_mytodo_ui"
       }
     end
   end
@@ -90,7 +90,7 @@ class MytodosController < TodosController
     if request.xhr?
       respond_to do |format|
         format.js {
-          render action: 'update_mytodo_ui'
+          render :action => "update_mytodo_ui"
         }
       end
     else
@@ -104,7 +104,7 @@ class MytodosController < TodosController
       if request.xhr?
         respond_to do |format|
           format.js {
-            render action: 'update_mytodo_ui'
+            render :action => "update_mytodo_ui"
           }
         end
       else
@@ -126,7 +126,7 @@ class MytodosController < TodosController
     #@todo.todoable = parent_object
     respond_to do |format|
       format.js {
-        render action: 'update_mytodo_ui'
+        render :action => "update_mytodo_ui"
       }
     end
   end
@@ -136,7 +136,7 @@ class MytodosController < TodosController
     respond_to do |format|
       format.html { render }
       format.js {
-        render action: 'update_mytodo_ui'
+        render :action => "update_mytodo_ui"
       }
     end
 

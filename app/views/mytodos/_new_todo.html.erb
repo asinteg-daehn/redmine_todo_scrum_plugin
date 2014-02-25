@@ -1,6 +1,16 @@
+<% 
+#New todo: partial for creating a new todo.
+#requires:
+#   todo : a new Todo object
+parent_object = todo.todoable
+raise unless parent_object
+%>
+
+
+
 
 <div class="new-todo">
-  <%=  form_for  todo, :url => "/users/#{@user.id}/todos", :remote => true,
+  <%=  form_for  [parent_object,todo], :url => Redmine::Utils.relative_url_root + "/users/#{@user.id}/todos", :remote => true,
     #:update => nothing - the action returns an rjs, which handles the page updates
   :success => "elements['todo[text]'].activate().clear();" do |f| %>
 
